@@ -96,22 +96,19 @@ def shortest_path(source, target):
     path = []           # path of tuples from source to target 
     
     # Breadth First search algorithm to find shortest path
-    print("Find path from %s to %s\n" % (source, target))
-
     s_node = Node(True, None, (None, source)) # init our root node
     q.add(s_node)  # Add the node to the queue
 
     while not q.empty():
         c_node = q.remove()   # Get our node to consider in the queue
         c_node.visited = True # Mark the node as visited
-        print(c_node.value)
+
         # Check if we have a goal node
         if c_node.value[1] == target:
             # Get the path from root node to this node
             while c_node.parent is not None:
                 path.insert(0, c_node.value)
                 c_node = c_node.parent
-            print(path)
             return path
         #Otherwise, start queuing the neighbors
         for neighbor in neighbors_for_person(c_node.value[1]):
@@ -119,8 +116,7 @@ def shortest_path(source, target):
                 # If the neighbor has not been visited...  
                 visited.append(neighbor) 
                 # create a node and add it to the queue 
-                q.add(Node(False, c_node, neighbor))
-                
+                q.add(Node(False, c_node, neighbor)) 
     return None
 
 
