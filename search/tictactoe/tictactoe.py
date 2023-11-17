@@ -71,12 +71,24 @@ def winner(board):
     # Check win conditions 
     ## Horizontal
     for i in range(rows):
-        print(board[i])
+        if board[i][0] == board[i][1] == board[i][2] == X:
+            return X
+        if board[0][i] == board[1][i] == board[2][i] == O:
+            return O
 
-    ## Vertical 
-    
+    ## Vertical  
+    for i in range(cols):
+        if board[0][i] == board[1][i] == board[2][i] == X:
+            return X
+        if board[0][i] == board[1][i] == board[2][i] == O:
+            return O
+
     ## Diagonal 
-    
+    if board[1][1] == X and ((board[0][0] == board[2][2] == X) or (board[0][2] == board[2][0] == X)):
+        return X 
+    if board[1][1] == O and ((board[0][0] == board[2][2] == O) or (board[0][2] == board[2][0] == O)):
+        return O 
+
     return None
 
 
@@ -85,8 +97,8 @@ def terminal(board):
     Returns True if game is over, False otherwise.
     """
     # Check if either player has won
-    if winner is not None:
-        return False
+    if winner(board) is not None:
+        return True
 
     # If board is filled
     for i in range(rows):
@@ -101,13 +113,11 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    if winner(board) is None:
-        return 0
-    
     if winner(board) == X:
         return 1
-    else: 
+    elif winner(board) == O: 
         return -1
+    return 0
 
 def maxvalue(board):
     """
